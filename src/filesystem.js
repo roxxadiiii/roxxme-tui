@@ -186,7 +186,7 @@ export let CWD = '/home/roxx';
 
 /** Resolve a path string to an absolute path */
 export function resolvePath(inputPath) {
-    if (!inputPath || inputPath === '~') return '/home/roxx';
+    if (!inputPath || inputPath === '~') return getCWD();
     if (inputPath.startsWith('~/')) return '/home/roxx/' + inputPath.slice(2);
     if (inputPath.startsWith('/')) return normalizePath(inputPath);
     return normalizePath(getCWD() + '/' + inputPath);
@@ -227,5 +227,5 @@ export function nodeType(absPath) {
 
 /** Display name for CWD (replaces /home/roxx with ~) */
 export function displayCWD() {
-    return CWD.replace('/home/roxx', '~') || '/';
+    return getCWD().replace('/home/roxx', '~') || '/';
 }

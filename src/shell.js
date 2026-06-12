@@ -236,7 +236,7 @@ function runCommand(term, raw, history, writePrompt) {
 
         // ── filesystem ──────────────────────────────────────────
         case 'ls': ls(term, args); break;
-        case 'cd': cd(term, args, writePrompt); break;
+        case 'cd': cd(term, args); break;
         case 'pwd': pwd(term); break;
         case 'cat': cat(term, args); break;
         case 'head': head(term, args); break;

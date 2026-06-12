@@ -1,4 +1,4 @@
-import { resolvePath, getNode, nodeType, CWD, setCWD, displayCWD, FS } from '../filesystem.js';
+import { resolvePath, getNode, nodeType, getCWD, setCWD, displayCWD, FS } from '../filesystem.js';
 
 const R = '\x1b[0m';
 const B = '\x1b[34m';   // blue  (dirs)
@@ -79,7 +79,7 @@ export function ls(term, args) {
 }
 
 // ── cd ─────────────────────────────────────────────────────
-export function cd(term, args, updatePrompt) {
+export function cd(term, args) {
     const target = resolvePath(args[0] ?? '~');
     const type = nodeType(target);
 
@@ -88,13 +88,13 @@ export function cd(term, args, updatePrompt) {
     if (type === 'file') { err(term, `cd: ${args[0]}: Not a directory`); term.writeln(''); return; }
 
     setCWD(target);
-    updatePrompt();   // signal shell to redraw prompt
+    // prompt is redrawn by the shell loop after every command — no extra call needed
 }
 
 // ── pwd ────────────────────────────────────────────────────
 export function pwd(term) {
     term.writeln('');
-    term.writeln(`  ${CWD}`);
+    term.writeln(`  ${getCWD()}`);
     term.writeln('');
 }
 
